@@ -1,0 +1,2 @@
+# roee_boosi_360_intelligence_global_market_valuation_analyst_quant_forecast_terminal
+roee_boosi_360_intelligence_global_market_valuation_analyst_quant_forecast_terminal  BOOSI 360° INTELLIGENCE™ — פלטפורמת מחקר, הערכות שווי ותחזיות מקיפה ב-360 מעלות למשקיעים, קרנות גידור ומנהלי תיקים, נקייה לחלוטין ומוכנה לפרסום חינמי עם עדכון אוטומטי כל 3 שניות (כולל סנכרון חי מול שערי ספוט). המערכת מאחדת בלחיצת כפתור מפת חום סקטוריאלית וחדשות מתפ
