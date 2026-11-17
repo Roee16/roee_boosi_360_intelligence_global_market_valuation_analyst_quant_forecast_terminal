@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BOOSI 360° INTELLIGENCE™ — Global Market, Valuation, Analyst &amp; Quant Forecast Terminal</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Heebo', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #050810;
+      color: #F8FAFC;
+      font-family: 'Inter', 'Heebo', sans-serif;
+      overflow-x: hidden;
+    }
+    .panel-360 {
+      background: linear-gradient(155deg, rgba(13, 20, 36, 0.95) 0%, rgba(7, 11, 22, 0.98) 100%);
+      border: 1px solid rgba(51, 65, 85, 0.55);
+      box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.72);
+    }
+    .panel-360-gold {
+      background: linear-gradient(155deg, rgba(24, 22, 34, 0.96) 0%, rgba(11, 14, 24, 0.98) 100%);
+      border: 1px solid rgba(245, 158, 11, 0.45);
+      box-shadow: 0 12px 34px -12px rgba(245, 158, 11, 0.16);
+    }
+    .bg-mesh {
+      background-image: radial-gradient(rgba(6, 182, 212, 0.08) 1px, transparent 1px);
+      background-size: 26px 26px;
+    }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: #050810; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    input[type="range"] { accent-color: #06B6D4; }
+  </style>
+</head>
+<body class="min-h-screen bg-mesh text-slate-100 antialiased selection:bg-cyan-500 selection:text-slate-950">
+
+  <!-- Top Live 360° Market Tape -->
+  <div class="w-full bg-slate-950/95 border-b border-slate-800/80 px-3 py-1.5 text-xs font-mono flex items-center justify-between gap-4 overflow-x-auto custom-scrollbar">
+    <div class="flex items-center gap-5 shrink-0" id="topTape360"></div>
+    <div class="flex items-center gap-3 shrink-0">
+      <span class="inline-flex items-center gap-1.5 text-emerald-400">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span>360° LIVE FEED (3s AUTO-SYNC)</span>
+      </span>
+      <span class="text-slate-600">|</span>
+      <span class="text-slate-400" id="clock360">--:--:--</span>
+      <span class="text-slate-600">|</span>
+      <a href="https://www.researchgate.net/profile/Roee-Boosi" target="_blank" rel="noopener noreferrer" class="text-cyan-400 hover:text-cyan-300 underline decoration-cyan-500/40">
+        Roee Boosi ResearchGate
+      </a>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-30 backdrop-blur-xl bg-[#050810]/90 border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 via-cyan-400 to-emerald-400 p-0.5 shadow-lg shadow-cyan-500/20">
+          <div class="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center font-mono font-extrabold text-sm text-amber-400">
+            360°
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 class="font-bold text-base sm:text-lg tracking-tight text-white">
+              BOOSI 360° INTELLIGENCE™ <span class="text-amber-400 font-mono text-xs px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30">GLOBAL MARKET &amp; FORECAST OS</span>
+            </h1>
+          </div>
+          <p class="text-xs text-slate-400" id="subtitle360">
+            Full 360° Capital Markets View • Analysts &amp; TipRanks-Style Consensus • DCF Valuations • Model Forecasts • SA-DRO Risk • Roee Boosi
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="toggleLive360Btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-mono bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/40 transition">
+          ⏸ Live Sync ON
+        </button>
+        <button id="toggleLang360Btn" type="button" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+          🌐 עברית / EN
+        </button>
+        <button id="openAccess360Btn" type="button" class="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 transition shadow-md shadow-amber-500/20">
+          💎 Institutional Plans
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="max-w-7xl mx-auto px-4 border-t border-slate-800/50">
+      <nav class="flex items-center gap-1 overflow-x-auto py-1.5 custom-scrollbar" aria-label="360 Navigation">
+        <button type="button" data-tab="overview" class="tab360-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+          1. 360° Market Pulse &amp; Breaking News
+        </button>
+        <button type="button" data-tab="analysts" class="tab360-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition whitespace-nowrap text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent">
+          2. Analysts, Top Experts &amp; TipRanks-Style Ratings
+        </button>
+        <button type="button" data-tab="forecasts" class="tab360-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition whitespace-nowrap text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent">
+          3. Model &amp; Expert Forecasts (Ranges &amp; Fan Chart)
+        </button>
+        <button type="button" data-tab="valuation" class="tab360-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition whitespace-nowrap text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent">
+          4. Intrinsic Valuation Lab (DCF + Multiples)
+        </button>
+        <button type="button" data-tab="risk360" class="tab360-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition whitespace-nowrap text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent">
+          5. Portfolio Risk, Stress Tests &amp; SA-DRO
+        </button>
+        <button type="button" data-tab="pricing360" class="tab360-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30">
+          6. 🏛️ Commercial Subscriptions &amp; Hedge Fund ROI
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-6 space-y-6">
+
+    <!-- Global Asset Selector Strip (Applies Across All 360° Tabs) -->
+    <section class="panel-360 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="text-xs font-mono uppercase text-slate-400 mr-1">Active 360° Asset:</span>
+        <div id="assetButtons360" class="flex items-center gap-1.5 flex-wrap"></div>
+      </div>
+      <div class="flex items-center gap-3 font-mono text-xs">
+        <span class="px-2.5 py-1 rounded bg-slate-950 border border-slate-800 text-white font-bold" id="activeAssetHeaderPrice">NVDA: $142.80</span>
+        <span class="px-2.5 py-1 rounded bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-bold" id="activeAssetCompositeScore">360° Score: 92 / 100 (STRONG BUY)</span>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 1: 360° MARKET PULSE, TECHNICALS & BREAKING NEWS
+         ========================================== -->
+    <section id="tab-overview" class="panel360-section space-y-6">
+      <!-- 6-Dimensional 360° Summary Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 font-mono">
+        <div class="panel-360 rounded-xl p-3.5 border-t-2 border-t-cyan-400">
+          <span class="text-[10px] text-slate-400 uppercase block">1. Technicals (RSI / Trend)</span>
+          <span class="text-base sm:text-lg font-extrabold text-cyan-300 mt-0.5 block" id="ovTechScore">Bullish (RSI 34)</span>
+          <span class="text-[11px] text-slate-400" id="ovTechSub">Above 200D SMA • -1.9σ BB</span>
+        </div>
+        <div class="panel-360 rounded-xl p-3.5 border-t-2 border-t-emerald-400">
+          <span class="text-[10px] text-slate-400 uppercase block">2. Analyst Consensus</span>
+          <span class="text-base sm:text-lg font-extrabold text-emerald-400 mt-0.5 block" id="ovAnalystTarget">$174.00 (+21.8%)</span>
+          <span class="text-[11px] text-slate-400" id="ovAnalystSub">38/42 Strong Buy</span>
+        </div>
+        <div class="panel-360 rounded-xl p-3.5 border-t-2 border-t-amber-400">
+          <span class="text-[10px] text-slate-400 uppercase block">3. Q-EWSS vs Crowd</span>
+          <span class="text-base sm:text-lg font-extrabold text-amber-300 mt-0.5 block" id="ovBoosiGap">+64 pt Divergence</span>
+          <span class="text-[11px] text-slate-400" id="ovBoosiSub">Expert 88 vs Crowd 24</span>
+        </div>
+        <div class="panel-360 rounded-xl p-3.5 border-t-2 border-t-violet-400">
+          <span class="text-[10px] text-slate-400 uppercase block">4. DCF Fair Value</span>
+          <span class="text-base sm:text-lg font-extrabold text-violet-300 mt-0.5 block" id="ovDcfValue">$168.50 (+18.0%)</span>
+          <span class="text-[11px] text-slate-400" id="ovDcfSub">Undervalued • High Moat</span>
+        </div>
+        <div class="panel-360 rounded-xl p-3.5 border-t-2 border-t-rose-400">
+          <span class="text-[10px] text-slate-400 uppercase block">5. SA-DRO Tail Risk</span>
+          <span class="text-base sm:text-lg font-extrabold text-white mt-0.5 block" id="ovVarCvar">CVaR 99%: -4.2%</span>
+          <span class="text-[11px] text-emerald-400" id="ovVarSub">Survivor-Aware Safe</span>
+        </div>
+        <div class="panel-360-gold rounded-xl p-3.5 border-t-2 border-t-amber-400">
+          <span class="text-[10px] text-amber-300 uppercase block">6. Boosi 360° Verdict</span>
+          <span class="text-base sm:text-lg font-extrabold text-emerald-400 mt-0.5 block" id="ovFinalVerdict">ACCUMULATE / HOLD</span>
+          <span class="text-[11px] text-amber-200" id="ovCyclex">CYCLEX: Spring Phase C</span>
+        </div>
+      </div>
+
+      <!-- Radar Chart (360° Factor Footprint) + Live Breaking News Wire -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-5 panel-360 rounded-2xl p-5 space-y-3">
+          <div>
+            <h2 class="font-bold text-base text-white">360° Multi-Factor Conviction Radar</h2>
+            <p class="text-xs text-slate-400">Synthesizes Technicals, Valuation, Top Experts, Quant Models (PRISM/CYCLEX), Macro &amp; Risk Control</p>
+          </div>
+          <div class="relative h-72 w-full">
+            <canvas id="radar360Chart"></canvas>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 panel-360 rounded-2xl p-5 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <span class="text-xs font-mono uppercase text-amber-400">Live Global Financial Wire</span>
+              <h3 class="font-bold text-base text-white">Breaking News, Macro Catalysts &amp; NLP Sentiment Impact</h3>
+            </div>
+            <span class="text-xs font-mono text-emerald-400">● Auto-Refreshing</span>
+          </div>
+          <div id="breakingNews360List" class="space-y-2.5 max-h-72 overflow-y-auto custom-scrollbar text-xs"></div>
+        </div>
+      </div>
+
+      <!-- Global Cross-Asset & Sector Heatmap -->
+      <div class="panel-360 rounded-2xl p-5 space-y-3">
+        <h3 class="font-bold text-base text-white">Global Cross-Asset &amp; Sector Heatmap (Live Snapshot)</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 font-mono text-xs" id="globalHeatmapGrid"></div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 2: ANALYSTS, TOP EXPERTS & TIPRANKS-STYLE RATINGS
+         ========================================== -->
+    <section id="tab-analysts" class="panel360-section hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Consensus Breakdown & Price Target Range (5 cols) -->
+        <div class="lg:col-span-5 panel-360-gold rounded-2xl p-5 space-y-4">
+          <div class="border-b border-slate-800 pb-3">
+            <span class="text-xs font-mono uppercase text-amber-400">TipRanks-Style Accuracy-Weighted Consensus</span>
+            <h2 class="text-lg font-bold text-white" id="analystTabTitle">NVDA — Analyst &amp; Expert Price Target Range</h2>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2 font-mono text-xs text-center">
+            <div class="p-3 rounded-xl bg-slate-950 border border-rose-500/30">
+              <span class="text-[10px] text-slate-400 block">LOW TARGET</span>
+              <span class="text-lg font-extrabold text-rose-400" id="anLowTarget">$135.00</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950 border border-cyan-500/40">
+              <span class="text-[10px] text-cyan-300 block">CONSENSUS MEDIAN</span>
+              <span class="text-lg font-extrabold text-white" id="anMedTarget">$174.00</span>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-950 border border-emerald-500/30">
+              <span class="text-[10px] text-slate-400 block">HIGH TARGET</span>
+              <span class="text-lg font-extrabold text-emerald-400" id="anHighTarget">$210.00</span>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 space-y-2 text-xs font-mono">
+            <div class="flex justify-between">
+              <span class="text-slate-400">All Wall Street Consensus:</span>
+              <span class="text-cyan-300 font-bold" id="anAllRating">Strong Buy (38 Buy / 4 Hold / 0 Sell)</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-amber-300">Boosi Q-EWSS Top-10% Experts Only:</span>
+              <span class="text-emerald-400 font-bold" id="anTopRating">96% Conviction ($182.50 Avg)</span>
+            </div>
+          </div>
+
+          <div class="relative h-52 w-full">
+            <canvas id="analystRatingsChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Individual Ranked Experts Table (7 cols) -->
+        <div class="lg:col-span-7 panel-360 rounded-2xl p-5 space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h3 class="font-bold text-base text-white">Top-Ranked Analysts &amp; Market Opinion Leaders (Accuracy-Weighted)</h3>
+              <p class="text-xs text-slate-400">Ranked by historical win rate, average alpha per call, and Q-EWSS calibration weight</p>
+            </div>
+          </div>
+          <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-left border-collapse text-xs font-mono">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400 uppercase">
+                  <th class="py-2.5 px-2">Expert / Institution</th>
+                  <th class="py-2.5 px-2">Star Rank &amp; Success</th>
+                  <th class="py-2.5 px-2">Avg Return</th>
+                  <th class="py-2.5 px-2">Action / Target</th>
+                  <th class="py-2.5 px-2">Q-EWSS Weight</th>
+                </tr>
+              </thead>
+              <tbody id="topExpertsTableBody" class="divide-y divide-slate-800/70"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 3: MODEL & EXPERT FORECASTS (FAN CHART & RANGES)
+         ========================================== -->
+    <section id="tab-forecasts" class="panel360-section hidden space-y-6">
+      <div class="panel-360 rounded-2xl p-5 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-3">
+          <div>
+            <span class="text-xs font-mono uppercase text-cyan-400">Multi-Horizon Quantitative &amp; Expert Forecast Synthesis</span>
+            <h2 class="text-lg font-bold text-white">Price Forecast Fan Chart: Bear / Base / Bull Ranges vs. Expert Consensus</h2>
+            <p class="text-xs text-slate-400">Compare Roee Boosi's Agentic PDE-RL + PRISM forecast trajectory against Wall Street consensus and 10th–90th percentile confidence bands</p>
+          </div>
+          <div class="flex items-center gap-2 bg-slate-950 p-1 rounded-lg border border-slate-800 font-mono text-xs" id="forecastHorizonBtns">
+            <button type="button" data-hz="30" class="hz-btn px-3 py-1 rounded text-slate-400 hover:text-white">30 Days</button>
+            <button type="button" data-hz="90" class="hz-btn px-3 py-1 rounded bg-cyan-500 text-slate-950 font-bold">90 Days</button>
+            <button type="button" data-hz="180" class="hz-btn px-3 py-1 rounded text-slate-400 hover:text-white">180 Days</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 font-mono text-xs">
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-rose-500/30">
+            <span class="text-[10px] text-slate-400 block">BEAR CASE (10th Percentile)</span>
+            <span class="text-xl font-extrabold text-rose-400" id="fcBearPrice">$126.40 (-11.5%)</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-cyan-500/40">
+            <span class="text-[10px] text-cyan-300 block">BOOSI PDE-RL BASE CASE</span>
+            <span class="text-xl font-extrabold text-white" id="fcBasePrice">$171.20 (+19.9%)</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-emerald-500/30">
+            <span class="text-[10px] text-slate-400 block">BULL CASE (90th Percentile)</span>
+            <span class="text-xl font-extrabold text-emerald-400" id="fcBullPrice">$198.50 (+39.0%)</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-950 border border-amber-500/40">
+            <span class="text-[10px] text-amber-300 block">EXPERT CONSENSUS TARGET</span>
+            <span class="text-xl font-extrabold text-amber-300" id="fcExpertPrice">$174.00 (+21.8%)</span>
+          </div>
+        </div>
+
+        <div class="relative h-80 w-full">
+          <canvas id="forecastFanChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 4: INTRINSIC VALUATION LAB (DCF + MULTIPLES + BUFFETT MOAT)
+         ========================================== -->
+    <section id="tab-valuation" class="panel360-section hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-5 panel-360-gold rounded-2xl p-5 space-y-4">
+          <div class="border-b border-slate-800 pb-3">
+            <span class="text-xs font-mono uppercase text-amber-400">Institutional DCF &amp; Buffett Margin of Safety</span>
+            <h2 class="text-lg font-bold text-white">Interactive Intrinsic Valuation Model</h2>
+          </div>
+
+          <div class="space-y-3 text-xs font-mono">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>Projected 5Y Free Cash Flow Growth (%)</span>
+                <span id="valDcfGrowth" class="text-emerald-400 font-bold">22.0%</span>
+              </div>
+              <input id="sliderDcfGrowth" type="range" min="2" max="45" step="0.5" value="22" class="w-full" />
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>Discount Rate / WACC (%)</span>
+                <span id="valDcfWacc" class="text-amber-300 font-bold">9.2%</span>
+              </div>
+              <input id="sliderDcfWacc" type="range" min="6" max="15" step="0.2" value="9.2" class="w-full" />
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>Terminal Growth Rate (%)</span>
+                <span id="valDcfTerm" class="text-cyan-300 font-bold">3.5%</span>
+              </div>
+              <input id="sliderDcfTerm" type="range" min="1.5" max="5.0" step="0.25" value="3.5" class="w-full" />
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-slate-950 border border-amber-500/40 space-y-2 font-mono text-xs">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Current Market Price:</span>
+              <span class="text-white font-bold" id="valCurPrice">$142.80</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Intrinsic DCF Fair Value:</span>
+              <span class="text-emerald-400 font-extrabold text-lg" id="valFairPrice">$168.50</span>
+            </div>
+            <div class="flex justify-between border-t border-slate-800 pt-2">
+              <span class="text-amber-300">Margin of Safety / Upside:</span>
+              <span class="text-emerald-400 font-extrabold" id="valMarginSafety">+18.0% UNDERVALUED</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 panel-360 rounded-2xl p-5 space-y-4">
+          <h3 class="font-bold text-base text-white">Valuation Football Field: DCF vs. Forward P/E vs. EV/EBITDA vs. Analyst Targets</h3>
+          <div class="relative h-72 w-full">
+            <canvas id="valuationBarChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 5: PORTFOLIO RISK, STRESS TESTS & SA-DRO
+         ========================================== -->
+    <section id="tab-risk360" class="panel360-section hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-5 panel-360 rounded-2xl p-5 space-y-4">
+          <div class="border-b border-slate-800 pb-3">
+            <span class="text-xs font-mono uppercase text-rose-400">Roee Boosi SA-DRO &amp; EEQAM Tail-Risk Engine</span>
+            <h2 class="text-lg font-bold text-white">Portfolio Stress-Test &amp; Scenario Simulator</h2>
+          </div>
+
+          <div class="space-y-2 text-xs font-mono" id="stressScenarioButtons"></div>
+
+          <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2 font-mono text-xs">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Unhedged Portfolio Impact:</span>
+              <span class="text-rose-400 font-bold" id="riskUnhedgedDd">-24.8%</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Boosi SA-DRO + PDE-RL Impact:</span>
+              <span class="text-emerald-400 font-bold" id="riskBoosiDd">-6.4%</span>
+            </div>
+            <div class="flex justify-between border-t border-slate-800 pt-2">
+              <span class="text-amber-300">Tail Drawdown Prevented:</span>
+              <span class="text-amber-400 font-extrabold" id="riskSavedDd">+18.4% Capital Saved</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 panel-360 rounded-2xl p-5 space-y-3">
+          <h3 class="font-bold text-base text-white">Stress-Test Drawdown &amp; Recovery Path (Unhedged vs. SA-DRO Protected)</h3>
+          <div class="relative h-72 w-full">
+            <canvas id="stressTestChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         TAB 6: COMMERCIAL SUBSCRIPTIONS & HEDGE FUND ROI
+         ========================================== -->
+    <section id="tab-pricing360" class="panel360-section hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-5 panel-360-gold rounded-2xl p-5 space-y-4">
+          <div class="border-b border-slate-800 pb-3">
+            <span class="text-xs font-mono uppercase text-amber-400">Institutional Value Calculator</span>
+            <h2 class="text-lg font-bold text-white">Portfolio &amp; Fund 360° Alpha ROI Calculator</h2>
+          </div>
+          <div class="space-y-3 text-xs font-mono">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>Managed Capital / AUM ($ Millions)</span>
+                <span id="val360Aum" class="text-amber-300 font-bold">$25M AUM</span>
+              </div>
+              <input id="slider360Aum" type="range" min="1" max="500" step="1" value="25" class="w-full" />
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>Expected Annual Risk-Adjusted Alpha (bps)</span>
+                <span id="val360Bps" class="text-emerald-400 font-bold">+160 bps/yr</span>
+              </div>
+              <input id="slider360Bps" type="range" min="30" max="400" step="10" value="160" class="w-full" />
+            </div>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-950 border border-amber-500/40 space-y-2 font-mono text-xs">
+            <div class="flex justify-between">
+              <span class="text-slate-400">Projected Annual Alpha Value:</span>
+              <span class="text-emerald-400 font-extrabold text-base" id="out360AlphaVal">+$400,000 / yr</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-slate-400">Institutional 360° License:</span>
+              <span class="text-white font-bold">$23,400 / yr ($1,950/mo)</span>
+            </div>
+            <div class="flex justify-between border-t border-slate-800 pt-2">
+              <span class="text-amber-300">Net ROI Multiple:</span>
+              <span class="text-amber-400 font-extrabold text-base" id="out360Roi">17.1x ROI</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 panel-360 rounded-2xl p-5 space-y-4">
+          <h3 class="text-lg font-bold text-white">BOOSI 360° INTELLIGENCE™ — Commercial Membership Plans</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+            <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 flex flex-col justify-between space-y-4">
+              <div class="space-y-2">
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300">PORTFOLIO MANAGER</span>
+                <div class="font-bold text-base text-white">360° Pro</div>
+                <div class="text-2xl font-extrabold font-mono text-cyan-300">$299<span class="text-xs text-slate-400">/mo</span></div>
+                <ul class="space-y-1.5 text-slate-300 pt-2">
+                  <li>✓ Full 360° Market &amp; News Wire</li>
+                  <li>✓ Top-Ranked Analyst Consensus</li>
+                  <li>✓ Multi-Horizon Fan Forecasts</li>
+                  <li>✓ Interactive DCF Valuation Lab</li>
+                </ul>
+              </div>
+              <button type="button" class="plan360-btn w-full py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold transition">Select 360° Pro</button>
+            </div>
+
+            <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-400 flex flex-col justify-between space-y-4">
+              <div class="space-y-2">
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-bold">TRADING DESK POD</span>
+                <div class="font-bold text-base text-white">Desk 360° Pod</div>
+                <div class="text-2xl font-extrabold font-mono text-amber-300">$1,950<span class="text-xs text-slate-400">/mo</span></div>
+                <ul class="space-y-1.5 text-slate-200 pt-2">
+                  <li>✓ 10 PM &amp; Trader Seats</li>
+                  <li>✓ SA-DRO Portfolio Stress-Testing</li>
+                  <li>✓ Q-EWSS + CYCLEX + PRISM Signals</li>
+                  <li>✓ Real-Time Telegram &amp; Email Alerts</li>
+                </ul>
+              </div>
+              <button type="button" class="plan360-btn w-full py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition">Deploy Desk Pod</button>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-950 border border-emerald-500/40 flex flex-col justify-between space-y-4">
+              <div class="space-y-2">
+                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300">HEDGE FUND</span>
+                <div class="font-bold text-base text-white">Enterprise 360° API</div>
+                <div class="text-2xl font-extrabold font-mono text-emerald-400">$3,500<span class="text-xs text-slate-400">/mo</span></div>
+                <ul class="space-y-1.5 text-slate-300 pt-2">
+                  <li>✓ Unlimited Firm-Wide Seats</li>
+                  <li>✓ Full REST + WebSocket Data Feed</li>
+                  <li>✓ Custom Research &amp; Model Tuning</li>
+                  <li>✓ Quarterly Keynote by Roee Boosi</li>
+                </ul>
+              </div>
+              <button type="button" class="plan360-btn w-full py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold transition">Request Enterprise</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Access Modal -->
+  <div id="access360Modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="panel-360-gold rounded-2xl max-w-lg w-full p-6 space-y-4 border border-amber-500/40">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div>
+          <span class="text-xs font-mono uppercase text-amber-400">BOOSI 360° INTELLIGENCE™</span>
+          <h3 class="text-lg font-bold text-white">Activate Institutional 360° Access</h3>
+        </div>
+        <button id="closeAccess360Btn" type="button" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono">✕ Close</button>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label for="acc360Name" class="block text-slate-300 mb-1">Name / Fund / Family Office</label>
+          <input id="acc360Name" type="text" placeholder="e.g. Horizon Capital" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white font-mono" />
+        </div>
+        <div>
+          <label for="acc360Email" class="block text-slate-300 mb-1">Work Email</label>
+          <input id="acc360Email" type="email" placeholder="pm@fund.com" class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-700 text-white font-mono" />
+        </div>
+        <button id="submitAccess360Btn" type="button" class="w-full py-2.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition">
+          Request Access &amp; Live Onboarding →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast360" class="fixed bottom-5 right-5 z-50 hidden px-4 py-3 rounded-xl bg-slate-900 border border-cyan-400/60 text-white text-xs font-mono shadow-2xl">
+    <span id="toast360Text">Updated!</span>
+  </div>
+
+  <footer class="max-w-7xl mx-auto px-4 py-6 mt-8 border-t border-slate-800/80 text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <div>© 2026 <strong>BOOSI 360° INTELLIGENCE™</strong> • Research &amp; Models by <a href="https://www.researchgate.net/profile/Roee-Boosi" target="_blank" rel="noopener noreferrer" class="text-cyan-400 underline">Roee Boosi</a>.</div>
+    <div class="font-mono text-emerald-400">🔒 Commercial Institutional Release</div>
+  </footer>
+
+  <script>
+    const STATE_360 = {
+      lang: 'en',
+      activeTab: 'overview',
+      selectedAsset: 'NVDA',
+      forecastHorizon: 90,
+      stressScenario: 'tariff_shock',
+      liveSync: true
+    };
+
+    const ASSETS_360 = {
+      NVDA: { name: 'NVIDIA Corp.', price: 142.80, chg: -4.2, score360: 92, verdict: 'ACCUMULATE / HOLD', rsi: 34.2, boosiDelta: 64, expert: 88, crowd: 24, dcf: 168.50, lowT: 135, medT: 174, highT: 210, cyclex: 'Spring Phase C', isCrypto: false },
+      AAPL: { name: 'Apple Inc.', price: 228.50, chg: -2.6, score360: 88, verdict: 'STRONG HOLD / BUY', rsi: 38.4, boosiDelta: 61, expert: 82, crowd: 21, dcf: 254.00, lowT: 210, medT: 258, highT: 285, cyclex: 'Phase C Test', isCrypto: false },
+      MSFT: { name: 'Microsoft Corp.', price: 426.10, chg: -1.9, score360: 90, verdict: 'CORE ACCUMULATE', rsi: 41.0, boosiDelta: 58, expert: 87, crowd: 29, dcf: 482.00, lowT: 420, medT: 495, highT: 540, cyclex: 'Re-Accumulation', isCrypto: false },
+      TSLA: { name: 'Tesla Inc.', price: 312.40, chg: -6.8, score360: 76, verdict: 'TACTICAL BUY DIP', rsi: 28.9, boosiDelta: 58, expert: 74, crowd: 16, dcf: 325.00, lowT: 220, medT: 335, highT: 410, cyclex: 'Selling Climax', isCrypto: false },
+      SPY:  { name: 'S&P 500 ETF', price: 586.20, chg: -1.8, score360: 89, verdict: 'STATISTICAL HOLD', rsi: 37.5, boosiDelta: 58, expert: 85, crowd: 27, dcf: 635.00, lowT: 560, medT: 642, highT: 675, cyclex: 'Macro Pullback', isCrypto: false },
+      BTC:  { name: 'Bitcoin Spot', price: 91450.00, chg: -4.5, score360: 87, verdict: 'ACCUMULATE DIP', rsi: 36.8, boosiDelta: 59, expert: 81, crowd: 22, dcf: 112000, lowT: 82000, medT: 118000, highT: 145000, cyclex: 'Absorption', isCrypto: true },
+      ETH:  { name: 'Ethereum Spot', price: 3140.00, chg: -5.1, score360: 83, verdict: 'ACCUMULATE', rsi: 34.9, boosiDelta: 57, expert: 77, crowd: 20, dcf: 3950, lowT: 2800, medT: 4100, highT: 5200, cyclex: 'Support Test', isCrypto: true }
+    };
+
+    const TOP_EXPERTS = [
+      { name: 'J. Vance (Institutional Semis)', stars: '★★★★★ (78% Win)', avgRet: '+26.4%', action: 'Strong Buy • $195', weight: '0.94' },
+      { name: 'M. Chen (Global Macro AI)', stars: '★★★★★ (74% Win)', avgRet: '+22.1%', action: 'Buy • $182', weight: '0.89' },
+      { name: 'S. Goldstein (Quant Equity Desk)', stars: '★★★★☆ (71% Win)', avgRet: '+19.8%', action: 'Overweight • $178', weight: '0.85' },
+      { name: 'R. Patel (Derivatives & Vol)', stars: '★★★★☆ (68% Win)', avgRet: '+17.2%', action: 'Accumulate • $172', weight: '0.81' },
+      { name: 'Retail Crowd Social Consensus', stars: '★☆☆☆☆ (39% Win)', avgRet: '-4.8%', action: 'Panic Sell / Bearish', weight: '0.08 (Filtered)' }
+    ];
+
+    const STRESS_SCENARIOS = {
+      tariff_shock: { label: 'Trade Tariff Escalation (-18% Equity Shock)', unhedged: -24.8, boosi: -6.4, curveU: [100, 92, 84, 75.2, 79, 83, 86], curveB: [100, 97, 94.5, 93.6, 98, 103, 108] },
+      liquidity_freeze: { label: '2020-Style Liquidity Cascade (-30% VIX Spike)', unhedged: -31.5, boosi: -7.9, curveU: [100, 88, 76, 68.5, 74, 80, 84], curveB: [100, 96, 93.2, 92.1, 97, 104, 111] },
+      rates_spike: { label: 'Sudden +75bps Yield Curve Shock', unhedged: -17.4, boosi: -4.1, curveU: [100, 94, 88, 82.6, 85, 89, 92], curveB: [100, 98, 96.4, 95.9, 99, 102, 105] }
+    };
+
+    let radarChartInst = null;
+    let analystChartInst = null;
+    let fanChartInst = null;
+    let valBarChartInst = null;
+    let stressChartInst = null;
+
+    function showToast360(msg) {
+      const el = document.getElementById('toast360');
+      const txt = document.getElementById('toast360Text');
+      if (!el || !txt) return;
+      txt.textContent = msg;
+      el.classList.remove('hidden');
+      setTimeout(() => el.classList.add('hidden'), 3000);
+    }
+
+    function fmtPrice(v) {
+      return v >= 1000 ? '$' + Math.round(v).toLocaleString() : '$' + v.toFixed(2);
+    }
+
+    async function fetchCrypto360() {
+      try {
+        const res = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=["BTCUSDT","ETHUSDT"]');
+        if (res.ok) {
+          const arr = await res.json();
+          if (Array.isArray(arr)) {
+            arr.forEach(item => {
+              if (item.symbol === 'BTCUSDT') ASSETS_360.BTC.price = parseFloat(item.lastPrice) || ASSETS_360.BTC.price;
+              if (item.symbol === 'ETHUSDT') ASSETS_360.ETH.price = parseFloat(item.lastPrice) || ASSETS_360.ETH.price;
+            });
+          }
+        }
+      } catch (e) {}
+    }
+
+    function renderTopTapeAndButtons() {
+      const tape = document.getElementById('topTape360');
+      if (tape) {
+        tape.innerHTML = Object.keys(ASSETS_360).map(sym => {
+          const a = ASSETS_360[sym];
+          return `
+            <div class="flex items-center gap-1.5">
+              <span class="font-bold text-white">${sym}</span>
+              <span class="text-cyan-300">${fmtPrice(a.price)}</span>
+              <span class="${a.chg >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${a.chg >= 0 ? '+' : ''}${a.chg.toFixed(1)}%</span>
+              <span class="text-amber-300">[360°:${a.score360}]</span>
+            </div>
+          `;
+        }).join('');
+      }
+
+      const btns = document.getElementById('assetButtons360');
+      if (btns) {
+        btns.innerHTML = Object.keys(ASSETS_360).map(sym => {
+          const active = STATE_360.selectedAsset === sym;
+          return `
+            <button type="button" data-sym360="${sym}" class="asset360-btn px-3 py-1.5 rounded-lg text-xs font-mono border transition ${active ? 'bg-amber-500 text-slate-950 font-bold border-amber-400' : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border-slate-700'}">
+              ${sym} ${fmtPrice(ASSETS_360[sym].price)}
+            </button>
+          `;
+        }).join('');
+
+        btns.querySelectorAll('.asset360-btn').forEach(b => {
+          b.addEventListener('click', () => {
+            STATE_360.selectedAsset = b.getAttribute('data-sym360') || 'NVDA';
+            renderAllActiveViews();
+          });
+        });
+      }
+
+      const cur = ASSETS_360[STATE_360.selectedAsset];
+      document.getElementById('activeAssetHeaderPrice').textContent = `${STATE_360.selectedAsset}: ${fmtPrice(cur.price)}`;
+      document.getElementById('activeAssetCompositeScore').textContent = `360° Score: ${cur.score360} / 100 (${cur.verdict})`;
+    }
+
+    function renderOverviewTab() {
+      const cur = ASSETS_360[STATE_360.selectedAsset];
+      const upsideMed = (((cur.medT - cur.price) / cur.price) * 100).toFixed(1);
+      const upsideDcf = (((cur.dcf - cur.price) / cur.price) * 100).toFixed(1);
+
+      document.getElementById('ovTechScore').textContent = `Bullish (RSI ${cur.rsi.toFixed(1)})`;
+      document.getElementById('ovAnalystTarget').textContent = `${fmtPrice(cur.medT)} (${upsideMed >= 0 ? '+' : ''}${upsideMed}%)`;
+      document.getElementById('ovBoosiGap').textContent = `+${cur.boosiDelta} pt Divergence`;
+      document.getElementById('ovBoosiSub').textContent = `Expert ${cur.expert} vs Crowd ${cur.crowd}`;
+      document.getElementById('ovDcfValue').textContent = `${fmtPrice(cur.dcf)} (${upsideDcf >= 0 ? '+' : ''}${upsideDcf}%)`;
+      document.getElementById('ovFinalVerdict').textContent = cur.verdict;
+      document.getElementById('ovCyclex').textContent = `CYCLEX: ${cur.cyclex}`;
+
+      // Radar Chart
+      const ctx = document.getElementById('radar360Chart');
+      if (ctx) {
+        if (radarChartInst) radarChartInst.destroy();
+        radarChartInst = new Chart(ctx, {
+          type: 'radar',
+          data: {
+            labels: ['Q-EWSS Experts', 'DCF Valuation', 'Technicals / CYCLEX', 'PRISM Momentum', 'SA-DRO Tail Safety', '13F Smart Money'],
+            datasets: [{
+              label: `${STATE_360.selectedAsset} 360° Footprint`,
+              data: [cur.expert, 86, 84, 81, 91, 88],
+              backgroundColor: 'rgba(6, 182, 212, 0.22)',
+              borderColor: '#06B6D4',
+              pointBackgroundColor: '#F59E0B',
+              borderWidth: 2
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                min: 0,
+                max: 100,
+                grid: { color: 'rgba(51, 65, 85, 0.5)' },
+                angleLines: { color: 'rgba(51, 65, 85, 0.5)' },
+                pointLabels: { color: '#CBD5E1', font: { family: 'JetBrains Mono', size: 10 } },
+                ticks: { display: false }
+              }
+            },
+            plugins: { legend: { display: false } }
+          }
+        });
+      }
+
+      // Breaking News
+      const newsData = [
+        { tag: `${STATE_360.selectedAsset} • Breaking`, time: 'Just now', title: `Institutional desks absorb retail volatility on ${STATE_360.selectedAsset} as top-decile analysts reiterate upside targets`, impact: 'Q-EWSS: +88 Bullish' },
+        { tag: 'Macro Policy Wire', time: '2m ago', title: 'Tariff & rate headline velocity pushes retail fear index down; PDE-RL signals high V-recovery expectancy', impact: 'Boosi Δ: +64 pts' },
+        { tag: '13F Institutional Flow', time: '5m ago', title: 'Multi-manager hedge fund pods increase net exposure to high-ROIC compounders and AI infrastructure', impact: 'Smart Money: +11% Q/Q' },
+        { tag: 'Earnings & Valuation', time: '8m ago', title: 'Free cash flow margin expansion keeps intrinsic DCF fair value 18% above current spot dislocation', impact: 'Buffett Moat: 94/100' }
+      ];
+      document.getElementById('breakingNews360List').innerHTML = newsData.map(n => `
+        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 space-y-1">
+          <div class="flex justify-between font-mono text-[11px]">
+            <span class="text-cyan-300 font-bold">${n.tag} • ${n.time}</span>
+            <span class="text-emerald-400 font-bold">${n.impact}</span>
+          </div>
+          <p class="text-slate-200 leading-relaxed">${n.title}</p>
+        </div>
+      `).join('');
+
+      // Heatmap
+      const sectors = [
+        { name: 'AI Semis', chg: '+2.4%', bg: 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300' },
+        { name: 'Mega Tech', chg: '+1.1%', bg: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300' },
+        { name: 'Defense', chg: '+1.8%', bg: 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300' },
+        { name: 'Industrials', chg: '+0.9%', bg: 'bg-cyan-500/15 border-cyan-500/30 text-cyan-300' },
+        { name: 'Financials', chg: '-0.4%', bg: 'bg-slate-800 border-slate-700 text-slate-300' },
+        { name: 'Energy', chg: '+1.4%', bg: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-300' },
+        { name: 'Crypto Spot', chg: '-3.2%', bg: 'bg-rose-500/15 border-rose-500/30 text-rose-300' },
+        { name: 'VIX Index', chg: '+6.1%', bg: 'bg-amber-500/20 border-amber-500/40 text-amber-300' }
+      ];
+      document.getElementById('globalHeatmapGrid').innerHTML = sectors.map(s => `
+        <div class="p-2.5 rounded-xl border ${s.bg} text-center">
+          <div class="font-bold">${s.name}</div>
+          <div class="text-sm font-extrabold mt-0.5">${s.chg}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderAnalystsTab() {
+      const cur = ASSETS_360[STATE_360.selectedAsset];
+      document.getElementById('analystTabTitle').textContent = `${STATE_360.selectedAsset} — Analyst & Expert Price Target Range`;
+      document.getElementById('anLowTarget').textContent = fmtPrice(cur.lowT);
+      document.getElementById('anMedTarget').textContent = fmtPrice(cur.medT);
+      document.getElementById('anHighTarget').textContent = fmtPrice(cur.highT);
+
+      document.getElementById('topExpertsTableBody').innerHTML = TOP_EXPERTS.map(e => `
+        <tr>
+          <td class="py-2.5 px-2 font-bold text-white">${e.name}</td>
+          <td class="py-2.5 px-2 text-amber-300">${e.stars}</td>
+          <td class="py-2.5 px-2 ${e.avgRet.startsWith('+') ? 'text-emerald-400' : 'text-rose-400'} font-bold">${e.avgRet}</td>
+          <td class="py-2.5 px-2 text-cyan-300">${e.action}</td>
+          <td class="py-2.5 px-2 text-slate-300">${e.weight}</td>
+        </tr>
+      `).join('');
+
+      const ctx = document.getElementById('analystRatingsChart');
+      if (ctx) {
+        if (analystChartInst) analystChartInst.destroy();
+        analystChartInst = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+            labels: ['Strong Buy / Buy (38)', 'Hold (4)', 'Sell (0)'],
+            datasets: [{ data: [38, 4, 0], backgroundColor: ['#10B981', '#F59E0B', '#EF4444'], borderWidth: 0 }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { position: 'right', labels: { color: '#CBD5E1', font: { family: 'JetBrains Mono', size: 11 } } } }
+          }
+        });
+      }
+    }
+
+    function renderForecastsTab() {
+      const cur = ASSETS_360[STATE_360.selectedAsset];
+      const hz = STATE_360.forecastHorizon;
+      const mult = hz / 90;
+
+      const bear = Number((cur.price * (1 - 0.115 * mult)).toFixed(cur.price >= 1000 ? 0 : 2));
+      const base = Number((cur.price * (1 + 0.199 * mult)).toFixed(cur.price >= 1000 ? 0 : 2));
+      const bull = Number((cur.price * (1 + 0.390 * mult)).toFixed(cur.price >= 1000 ? 0 : 2));
+
+      document.getElementById('fcBearPrice').textContent = `${fmtPrice(bear)} (${(-11.5 * mult).toFixed(1)}%)`;
+      document.getElementById('fcBasePrice').textContent = `${fmtPrice(base)} (+${(19.9 * mult).toFixed(1)}%)`;
+      document.getElementById('fcBullPrice').textContent = `${fmtPrice(bull)} (+${(39.0 * mult).toFixed(1)}%)`;
+      document.getElementById('fcExpertPrice').textContent = `${fmtPrice(cur.medT)} (+${(((cur.medT - cur.price) / cur.price) * 100).toFixed(1)}%)`;
+
+      const steps = ['Now', `D+${Math.round(hz * 0.25)}`, `D+${Math.round(hz * 0.5)}`, `D+${Math.round(hz * 0.75)}`, `D+${hz}`];
+      const lerp = (start, end) => steps.map((_, i) => Number((start + (end - start) * (i / 4)).toFixed(2)));
+
+      const ctx = document.getElementById('forecastFanChart');
+      if (ctx) {
+        if (fanChartInst) fanChartInst.destroy();
+        fanChartInst = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: steps,
+            datasets: [
+              { label: 'Bull Case (90th %ile)', data: lerp(cur.price, bull), borderColor: '#10B981', borderDash: [5, 5], borderWidth: 1.5 },
+              { label: 'Boosi PDE-RL + PRISM Base Forecast', data: lerp(cur.price, base), borderColor: '#06B6D4', borderWidth: 3, fill: '-1', backgroundColor: 'rgba(16, 185, 129, 0.08)' },
+              { label: 'Bear Case (10th %ile)', data: lerp(cur.price, bear), borderColor: '#EF4444', borderDash: [5, 5], borderWidth: 1.5, fill: '-1', backgroundColor: 'rgba(6, 182, 212, 0.06)' },
+              { label: 'Wall Street Expert Median', data: lerp(cur.price, cur.medT), borderColor: '#F59E0B', borderWidth: 2 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: '#CBD5E1', font: { family: 'JetBrains Mono', size: 11 } } } },
+            scales: {
+              x: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(51, 65, 85, 0.25)' } },
+              y: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(51, 65, 85, 0.25)' } }
+            }
+          }
+        });
+      }
+    }
+
+    function renderValuationTab() {
+      const cur = ASSETS_360[STATE_360.selectedAsset];
+      const g = Number(document.getElementById('sliderDcfGrowth').value);
+      const wacc = Number(document.getElementById('sliderDcfWacc').value);
+      const term = Number(document.getElementById('sliderDcfTerm').value);
+
+      document.getElementById('valDcfGrowth').textContent = `${g.toFixed(1)}%`;
+      document.getElementById('valDcfWacc').textContent = `${wacc.toFixed(1)}%`;
+      document.getElementById('valDcfTerm').textContent = `${term.toFixed(2)}%`;
+
+      const scaleFactor = ((1 + g / 100) / (1 + wacc / 100)) * (1 + term / 40);
+      const fairPrice = Number((cur.dcf * (scaleFactor / 1.18)).toFixed(cur.price >= 1000 ? 0 : 2));
+      const mos = (((fairPrice - cur.price) / cur.price) * 100).toFixed(1);
+
+      document.getElementById('valCurPrice').textContent = fmtPrice(cur.price);
+      document.getElementById('valFairPrice').textContent = fmtPrice(fairPrice);
+      const mosEl = document.getElementById('valMarginSafety');
+      mosEl.textContent = `${mos >= 0 ? '+' : ''}${mos}% ${mos >= 0 ? 'UNDERVALUED' : 'OVERVALUED'}`;
+      mosEl.className = `font-extrabold ${mos >= 0 ? 'text-emerald-400' : 'text-rose-400'}`;
+
+      const ctx = document.getElementById('valuationBarChart');
+      if (ctx) {
+        if (valBarChartInst) valBarChartInst.destroy();
+        valBarChartInst = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Current Market Price', 'DCF Intrinsic Fair Value', 'Forward P/E Multiple', 'EV/EBITDA Peers', 'Top-10% Expert Target'],
+            datasets: [{
+              label: 'Valuation Comparison ($)',
+              data: [cur.price, fairPrice, cur.price * 1.15, cur.price * 1.12, cur.medT],
+              backgroundColor: ['#94A3B8', '#10B981', '#06B6D4', '#8B5CF6', '#F59E0B'],
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { ticks: { color: '#CBD5E1', font: { size: 10 } }, grid: { display: false } },
+              y: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(51, 65, 85, 0.25)' } }
+            }
+          }
+        });
+      }
+    }
+
+    function renderRisk360Tab() {
+      const box = document.getElementById('stressScenarioButtons');
+      box.innerHTML = Object.keys(STRESS_SCENARIOS).map(k => `
+        <button type="button" data-sc="${k}" class="sc360-btn w-full p-2.5 rounded-xl text-left border transition ${STATE_360.stressScenario === k ? 'bg-amber-500/20 text-amber-300 border-amber-400 font-bold' : 'bg-slate-950 text-slate-300 border-slate-800'}">
+          ${STRESS_SCENARIOS[k].label}
+        </button>
+      `).join('');
+
+      box.querySelectorAll('.sc360-btn').forEach(b => {
+        b.addEventListener('click', () => {
+          STATE_360.stressScenario = b.getAttribute('data-sc') || 'tariff_shock';
+          renderRisk360Tab();
+        });
+      });
+
+      const sc = STRESS_SCENARIOS[STATE_360.stressScenario];
+      document.getElementById('riskUnhedgedDd').textContent = `${sc.unhedged}%`;
+      document.getElementById('riskBoosiDd').textContent = `${sc.boosi}%`;
+      document.getElementById('riskSavedDd').textContent = `+${(Math.abs(sc.unhedged) - Math.abs(sc.boosi)).toFixed(1)}% Capital Saved`;
+
+      const ctx = document.getElementById('stressTestChart');
+      if (ctx) {
+        if (stressChartInst) stressChartInst.destroy();
+        stressChartInst = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['D0', 'D+5', 'D+10', 'D+15 (Bottom)', 'D+30', 'D+45', 'D+60'],
+            datasets: [
+              { label: 'Boosi SA-DRO + PDE-RL Protected Portfolio', data: sc.curveB, borderColor: '#10B981', borderWidth: 3, tension: 0.3 },
+              { label: 'Unhedged Traditional Portfolio', data: sc.curveU, borderColor: '#EF4444', borderDash: [5, 5], borderWidth: 2, tension: 0.3 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { labels: { color: '#CBD5E1', font: { family: 'JetBrains Mono', size: 11 } } } },
+            scales: {
+              x: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(51, 65, 85, 0.25)' } },
+              y: { ticks: { color: '#94A3B8' }, grid: { color: 'rgba(51, 65, 85, 0.25)' } }
+            }
+          }
+        });
+      }
+    }
+
+    function updatePricing360Roi() {
+      const aum = Number(document.getElementById('slider360Aum').value);
+      const bps = Number(document.getElementById('slider360Bps').value);
+      document.getElementById('val360Aum').textContent = `$${aum}M AUM`;
+      document.getElementById('val360Bps').textContent = `+${bps} bps/yr`;
+      const alphaVal = Math.round(aum * 1000000 * (bps / 10000));
+      const roi = (alphaVal / 23400).toFixed(1);
+      document.getElementById('out360AlphaVal').textContent = `+$${alphaVal.toLocaleString()} / yr`;
+      document.getElementById('out360Roi').textContent = `${roi}x ROI`;
+    }
+
+    function renderAllActiveViews() {
+      renderTopTapeAndButtons();
+      if (STATE_360.activeTab === 'overview') renderOverviewTab();
+      if (STATE_360.activeTab === 'analysts') renderAnalystsTab();
+      if (STATE_360.activeTab === 'forecasts') renderForecastsTab();
+      if (STATE_360.activeTab === 'valuation') renderValuationTab();
+      if (STATE_360.activeTab === 'risk360') renderRisk360Tab();
+      if (STATE_360.activeTab === 'pricing360') updatePricing360Roi();
+    }
+
+    function switchTab360(tabId) {
+      STATE_360.activeTab = tabId;
+      document.querySelectorAll('.panel360-section').forEach(p => p.classList.add('hidden'));
+      const el = document.getElementById(`tab-${tabId}`);
+      if (el) el.classList.remove('hidden');
+
+      document.querySelectorAll('.tab360-btn').forEach(btn => {
+        const t = btn.getAttribute('data-tab');
+        if (t === tabId) {
+          btn.className = 'tab360-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap bg-cyan-500/20 text-cyan-300 border border-cyan-500/40';
+        } else if (t === 'pricing360') {
+          btn.className = 'tab360-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition whitespace-nowrap text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30';
+        } else {
+          btn.className = 'tab360-btn px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition whitespace-nowrap text-slate-400 hover:text-slate-200 hover:bg-slate-800/60 border border-transparent';
+        }
+      });
+      renderAllActiveViews();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      fetchCrypto360();
+      renderAllActiveViews();
+
+      setInterval(() => {
+        if (!STATE_360.liveSync) return;
+        Object.keys(ASSETS_360).forEach(sym => {
+          const a = ASSETS_360[sym];
+          const j = (Math.random() - 0.49) * (a.price * 0.0010);
+          a.price = Number((a.price + j).toFixed(a.price >= 1000 ? 0 : 2));
+        });
+        document.getElementById('clock360').textContent = new Date().toLocaleTimeString();
+        renderTopTapeAndButtons();
+      }, 3000);
+
+      setInterval(() => {
+        if (STATE_360.liveSync) fetchCrypto360();
+      }, 25000);
+
+      document.querySelectorAll('.tab360-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const t = btn.getAttribute('data-tab');
+          if (t) switchTab360(t);
+        });
+      });
+
+      document.querySelectorAll('.hz-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          STATE_360.forecastHorizon = Number(btn.getAttribute('data-hz')) || 90;
+          document.querySelectorAll('.hz-btn').forEach(b => b.className = 'hz-btn px-3 py-1 rounded text-slate-400 hover:text-white');
+          btn.className = 'hz-btn px-3 py-1 rounded bg-cyan-500 text-slate-950 font-bold';
+          renderForecastsTab();
+        });
+      });
+
+      ['sliderDcfGrowth', 'sliderDcfWacc', 'sliderDcfTerm'].forEach(id => {
+        document.getElementById(id).addEventListener('input', renderValuationTab);
+      });
+
+      ['slider360Aum', 'slider360Bps'].forEach(id => {
+        document.getElementById(id).addEventListener('input', updatePricing360Roi);
+      });
+
+      document.getElementById('toggleLive360Btn').addEventListener('click', () => {
+        STATE_360.liveSync = !STATE_360.liveSync;
+        document.getElementById('toggleLive360Btn').textContent = STATE_360.liveSync ? '⏸ Live Sync ON' : '▶ Live Sync PAUSED';
+        showToast360(STATE_360.liveSync ? '360° Live Feed Resumed' : '360° Live Feed Paused');
+      });
+
+      document.getElementById('toggleLang360Btn').addEventListener('click', () => {
+        STATE_360.lang = STATE_360.lang === 'en' ? 'he' : 'en';
+        const isHe = STATE_360.lang === 'he';
+        document.documentElement.dir = isHe ? 'rtl' : 'ltr';
+        document.getElementById('subtitle360').textContent = isHe
+          ? 'תמונת 360° מלאה לשוק ההון • אנליסטים ומומחים • הערכות שווי DCF • תחזיות מודלים • ניהול סיכונים SA-DRO • רועי בוסי'
+          : 'Full 360° Capital Markets View • Analysts & TipRanks-Style Consensus • DCF Valuations • Model Forecasts • SA-DRO Risk • Roee Boosi';
+        showToast360(isHe ? 'מצב עברית (RTL) הופעל' : 'English Mode Activated');
+      });
+
+      document.getElementById('openAccess360Btn').addEventListener('click', () => {
+        document.getElementById('access360Modal').classList.remove('hidden');
+      });
+      document.querySelectorAll('.plan360-btn').forEach(b => {
+        b.addEventListener('click', () => document.getElementById('access360Modal').classList.remove('hidden'));
+      });
+      document.getElementById('closeAccess360Btn').addEventListener('click', () => {
+        document.getElementById('access360Modal').classList.add('hidden');
+      });
+      document.getElementById('submitAccess360Btn').addEventListener('click', () => {
+        const em = document.getElementById('acc360Email').value.trim();
+        if (!em) { showToast360('Please enter your work email'); return; }
+        document.getElementById('access360Modal').classList.add('hidden');
+        showToast360(`360° Institutional access request received for ${em}!`);
+      });
+    });
+  </script>
+</body>
+</html>
